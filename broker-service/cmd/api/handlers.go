@@ -26,8 +26,6 @@ func (app *Config) Broker(w http.ResponseWriter, r *http.Request) {
 	_ = app.writeJSON(w, http.StatusOK, payload)
 }
 
-// HandleSubmission is the main point of entry into the broker. It accepts a JSON
-// payload and performs an action based on the value of "action" in that JSON.
 func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 	var requestPayload RequestPayload
 
@@ -45,7 +43,6 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// authenticate calls the authentication microservice and sends back the appropriate response
 func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 	// create some json we'll send to the auth microservice
 	jsonData, _ := json.MarshalIndent(a, "", "\t")
@@ -67,7 +64,7 @@ func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 
 	// make sure we get back the correct status code
 	if response.StatusCode == http.StatusUnauthorized {
-		app.errorJSON(w, errors.New("invalid credentials"))
+		app.errorJSON(w, errors.New("unauthorized"))
 		return
 	} else if response.StatusCode != http.StatusAccepted {
 		app.errorJSON(w, errors.New("error calling auth service"))
@@ -78,7 +75,7 @@ func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 	var jsonFromService jsonResponse
 
 	// decode the json from the auth service
-	err = json.NewDecoder(response.Body).Decode(&jsonFromService)
+	err := json.NewDecoder(response.Body).Decode(&jsonFromService)
 	if err != nil {
 		app.errorJSON(w, err)
 		return
@@ -91,7 +88,7 @@ func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 
 	var payload jsonResponse
 	payload.Error = false
-	payload.Message = "Authenticated!"
+	payload.Message = "Authenticated"
 	payload.Data = jsonFromService.Data
 
 	app.writeJSON(w, http.StatusAccepted, payload)
