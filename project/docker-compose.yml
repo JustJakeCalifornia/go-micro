@@ -13,6 +13,17 @@ services:
       replicas: 1
       labels:
         - "broker-service=true"
+
+  logger-service:
+    build:
+     context: ./../logger-service
+     dockerfile: ./../logger-service/logger-service.dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - "logger-service=true"  
   
   authentication-service:
     build:
