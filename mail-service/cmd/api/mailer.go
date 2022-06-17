@@ -11,23 +11,23 @@ import (
 
 type Mail struct {
 	Domain      string
-	Host        string `json:"host"`
-	Port        int    `json:"port"`
-	Username    string `json:"username"`
-	Password    string `json:"password"`
-	Encryption  string `json:"encryption"`
-	FromAddress string `json:"from_address"`
-	FromName    string `json:"from_name"`
+	Host        string
+	Port        int
+	Username    string
+	Password    string
+	Encryption  string
+	FromAddress string
+	FromName    string
 }
 
 type Message struct {
-	From        string         `json:"from"`
-	FromName    string         `json:"from_name"`
-	To          string         `json:"to"`
-	Subject     string         `json:"subject"`
-	Attachments []string       `json:"attachments"`
-	Data        any            `json:"data"`
-	DataMap     map[string]any `json:"data_map"`
+	From        string
+	FromName    string
+	To          string
+	Subject     string
+	Attachments []string
+	Data        any
+	DataMap     map[string]any
 }
 
 func (m *Mail) SendSMTPMessage(msg Message) error {
