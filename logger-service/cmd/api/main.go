@@ -55,6 +55,9 @@ func main() {
 	// start RPC server
 	go app.rpcListen()
 
+	//start gRPC server
+	go app.gRpcListen()
+
 	// start web server
 	log.Println("Starting logger-service on port", webPort)
 	serve := &http.Server{
