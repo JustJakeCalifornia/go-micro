@@ -188,7 +188,7 @@ func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 }
 
 func (app *Config) logEventViaRabbit(w http.ResponseWriter, l LogPayload) {
-	err := pushToQueue(l.Name, l.Data)
+	err := app.pushToQueue(l.Name, l.Data)
 	if err != nil {
 		app.errorJSON(w, err)
 		return
