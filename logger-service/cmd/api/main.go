@@ -39,7 +39,7 @@ func main() {
 
 	// close connection
 	defer func() {
-		if err := client.Disconnect(ctx); err != nil {
+		if err = client.Disconnect(ctx); err != nil {
 			panic(err)
 		}
 	}()
@@ -50,7 +50,7 @@ func main() {
 
 	// start web server
 	// go app.serve()
-	log.Println("starting logger-service on port", webPort)
+	log.Println("Starting logger-service on port", webPort)
 	serve := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
@@ -58,21 +58,10 @@ func main() {
 
 	err = serve.ListenAndServe()
 	if err != nil {
-		log.Panic(err)
+		log.Panic()
 	}
+
 }
-
-// func (app *Config) serve() {
-// 	serve := &http.Server{
-// 		Addr:    fmt.Sprintf(":%s", webPort),
-// 		Handler: app.routes(),
-// 	}
-
-// 	err := serve.ListenAndServe()
-// 	if err != nil {
-// 		log.Panic(err)
-// 	}
-// }
 
 func connectToMongo() (*mongo.Client, error) {
 	// create connection options
@@ -82,14 +71,14 @@ func connectToMongo() (*mongo.Client, error) {
 		Password: "password",
 	})
 
-	// connect to mongo
+	// connect
 	c, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
-		log.Println("error connecting to mongo: ", err)
+		log.Println("Error connecting:", err)
 		return nil, err
 	}
 
-	log.Println("connected to mongo!")
+	log.Println("Connected to mongo!")
 
 	return c, nil
 }
