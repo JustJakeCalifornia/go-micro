@@ -37,8 +37,8 @@ services:
       MAIL_ENCRYPTION: none
       MAIL_USERNAME: ""
       MAIL_PASSWORD: ""
-      FROM_NAME: "John Smith"
-      FROM_ADDRESS: john.smith@example.com
+      MAIL_FROM_NAME: "John Smith"
+      MAIL_FROM_ADDRESS: john.smith@example.com
 
   authentication-service:
     build:
