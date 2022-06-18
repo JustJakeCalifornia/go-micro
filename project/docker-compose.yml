@@ -9,8 +9,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      labels:
-        - "broker-service=true"
 
   logger-service:
     build:
@@ -19,9 +17,7 @@ services:
     restart: always
     deploy:
       mode: replicated
-      replicas: 1
-      labels:
-        - "logger-service=true"  
+      replicas: 1 
   
   authentication-service:
     build:
