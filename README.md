@@ -19,3 +19,6 @@ When deploying with Docker Swarm, you'll need to edit your `hosts` file accordin
 127.0.0.1       localhost backend
 ::1             localhost backend
 ```
+```
+127.0.0.1 front-end.info broker-service.info
+```
