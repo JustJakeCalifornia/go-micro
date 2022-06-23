@@ -4,6 +4,8 @@ Simple Go microservice project with a broker, mail, logging and listener service
 # Deployment
 ## Kubernetes
 Before launching k8s with all its services make sure to fire up the external `postgres.yml` with `docker-compose -f .\postgres.yml up -d`
+## LoadBalancer setup
+`kubectl expose deployment broker-service --type=LoadBalancer --port=8080 --target-port=8080`
 
 ## Troubleshooting
 
